@@ -1,0 +1,51 @@
+ {% extends 'layouts/base.html.twig' %}
+
+{% block title %}Estate Agency{% endblock %}
+
+{% block body %}
+    <section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="card-box-a">
+                    <div class="img-box-a">
+                    <img src="../assets/img/property-5.jpg" alt="" class="img-top">
+                </div>
+                <div class="title-single-box">
+                    <h2 class="title-single">{{ property.title }}</h2>
+                    <h1 class="title-single">{{ property.address }}</h1>
+                    <h2 class="title-single">{{ property.description }}</h2>
+                    <span class="color-text-a">{{ property.PostalCode }}, {{ property.city }}</span>
+                    <button class="btn btn-primary mt-4 mx-auto">
+                        <a href="{{path('app_property_show', {id: property.id, slug: property.slug})}}">more details</a>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{path('app_home')}}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{path('app_properties')}}">Properties</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{property.formattedPrice}} $
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span class="color-text-a badge bg-success">Parking: {{ property.parkingType }}, Type de chauffage:{{ property.heatType }}</span>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+ 
+ 
+ 
+ 

@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Estate Agency - Agence Immobilier -Properties!{% endblock %}
+
+{% block body %}
+
+<main id="main">
+    {# intro single #}
+   {{ include('property/partials/_intro_single.html.twig') }}
+
+  {{ include('property/partials/_show_single.html.twig') }}
+</main>
+
+{% endblock %}
