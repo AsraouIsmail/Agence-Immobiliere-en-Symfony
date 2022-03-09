@@ -39,6 +39,18 @@
           <li class="nav-item">
             <a class="nav-link " href="contact.html">Contact</a>
           </li>
+           {% if app.user %}
+                    <li class="nav-item">
+                        <a href="{{ path('logout') }}" class="nav-link">Se déconnecter</a>
+                    </li>
+          {% endif %}
+        
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p></p>
+            <li class="nav-item">
+            <a class="nav-link">User: {{ app.user.username }}</a>
+          </li>
+        {% endif %}
         </ul>
       </div>
 
