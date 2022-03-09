@@ -1,0 +1,39 @@
+<div class="container mt-5 py-5">
+
+    <h1>Gerer les biens</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table class="table table-striped table-hover mt-5">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+    <tr>
+     {% for property in properties%}
+         <th></th>
+        <td>{{ property.title }}</td>
+        <td>
+            <a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-sm btn-primary">Editer</a>
+            <form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous vraiment sûr ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}">
+                    <button class="btn btn-sm btn-danger my-2">Supprimer</button>
+                </form>
+            </td>
+        </td>
+    {% endfor %}
+    </tr>
+  </tbody>
+</table>
+<div class="text-right">
+    <a href="{{path('admin.property.create')}}" class="btn btn-warning">Creer</a>
+</div>
+</div>
