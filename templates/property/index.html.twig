@@ -11,4 +11,8 @@
   {{ include('property/partials/_show_single.html.twig') }}
 </main>
 
+ <div class="pagination">
+    {{ knp_pagination_render(properties) }}
+</div>
+
 {% endblock %}

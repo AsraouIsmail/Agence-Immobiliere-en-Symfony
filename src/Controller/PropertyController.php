@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Property;
 use App\Repository\PropertyRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PropertyController extends AbstractController
 {
@@ -26,11 +28,17 @@ class PropertyController extends AbstractController
     /**
      * @Route("/properties", name="app_properties")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
 
     {
 
-       $properties = $this->repository->findAllVisible();
+    
+
+    $properties = $paginator->paginate(
+        $this->repository->findAllVisibleQuery(),
+        $request->query->getInt('page', 1),
+        12
+    );
     
 
        dump($properties);

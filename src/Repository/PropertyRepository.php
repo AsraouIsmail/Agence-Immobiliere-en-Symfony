@@ -47,16 +47,27 @@ class PropertyRepository extends ServiceEntityRepository
         }
     }
 
-     /**
-     * @return Property[]
-     */
-    public function findAllVisible(): array
-    {
+    //  /**
+    //  * @return Property[]
+    //  */
+    // public function findAllVisible(): array
+    // {
+    //     return $this->findVisibleQuery()
+    //                 ->orderBy('p.id', 'DESC')
+    //                 ->getQuery()
+    //                 ->getResult();
+    // }
+
+
+    /**
+    * @return Query
+    */
+    
+    public function findAllVisibleQuery(): Query
+        {
         return $this->findVisibleQuery()
-                    ->orderBy('p.id', 'DESC')
-                    ->getQuery()
-                    ->getResult();
-    }
+                    ->getQuery();
+        }
 
 
     /**
