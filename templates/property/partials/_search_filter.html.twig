@@ -1,4 +1,6 @@
- 
+<div class="click-closed"></div>
+<div class="box-collapse">
+<span class="close-box-collapse right-boxed bi bi-x"></span>
  <div class="container">
     <div class="row">
         {{form_start(form)}}
@@ -19,6 +21,16 @@
                 {{ form_row(form.maxPrice, {'attr': {'class': 'form-control form-control-lg form-control-a'}}) }}
               </div>
         </div>
+
+          <div class="col-md-6 mb-2">
+              <div  class="form-group">
+
+                <label class="pb-2" for="Type">Recherche par options</label>
+
+                {{ form_row(form.options, {'attr': {'class': 'form-control form-control-lg form-control-a'}}) }}
+              </div>
+        </div>
+        
         <div class="col-md-6 mb-2 mx-5 my-5 px-5">
 
           <button class="btn btn-b">Rechercher une propriété</button>
@@ -28,5 +40,6 @@
 
     </div>
     
+ </div>
  </div>
  

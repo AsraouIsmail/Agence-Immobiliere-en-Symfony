@@ -1,0 +1,18 @@
+
+
+{{ form_start(form) }}
+    {{ form_rest(form) }}
+    <button class="btn btn-success mb-5 p-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $('select').select2();
+    </script>
+{% endblock %}
