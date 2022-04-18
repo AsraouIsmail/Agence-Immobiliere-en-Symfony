@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Property;
 use App\Entity\PropertySearch;
+use App\Form\ContactType;
 use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
+use App\Notification\ContactNotification;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,6 +81,33 @@ class PropertyController extends AbstractController
         return $this->render('property/_show_detail.html.twig',[
             'property' => $property,
             'current_menu' => 'properties',
+        ]);
+    }
+
+
+      /**
+     * @Route("/contact", name="app_contact")
+     * @param Property $property
+     * @return Response
+     */
+    public function contact(Request $request, ContactNotification $notification): Response
+    {
+        $contact = new Contact();
+
+
+        $form = $this->createForm(ContactType::class, $contact);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $notification->notify($contact);
+
+            $this->addFlash('success', 'Votre message a bien été envoyé');
+
+        }
+        return $this->render('contact/index.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

@@ -1,4 +1,6 @@
+
  {{ form_start(form) }}
+ <form method="post" enctype="multipart/form-data">
 <div class="row">
     <div class="col-md-5">{{ form_row(form.title) }}</div>
      <div class="col-md-5">{{ form_row(form.description) }}</div>
@@ -11,6 +13,7 @@
     <div class="col-md-2">{{ form_row(form.heat) }}</div>
     <div class="col-md-2">{{ form_row(form.floor) }}</div>
     <div class="col-md-5">{{ form_row(form.address) }}</div>
+    <div class="col-md-3">{{ form_row(form.imageFile) }}</div>
     <div class="col-md-2">{{ form_row(form.city) }}</div>
     <div class="col-md-3">{{ form_row(form.postalCode) }}</div>
     <div class="col-md-3">{{ form_row(form.country) }}</div>
@@ -23,7 +26,9 @@
 </div>
 {{ form_widget(form) }}
 <button class="btn btn-primary">{{ button }}</button>
+</form>
 {{ form_end(form) }}
+
 
 
 {% block stylesheets %}

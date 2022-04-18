@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Entity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Cocur\Slugify\Slugify;
 use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  * @UniqueEntity("title")
+ * @Vich\Uploadable
  */
 class Property
 {
@@ -36,6 +40,7 @@ class Property
         0 => 'oui',
         1 => 'Non'
     ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,11 +48,26 @@ class Property
      */
     private $id;
 
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     */
+    private $imageFile;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Donnez un titre a votre bien")
      * @Assert\Length(min=4)
      */
+
     private $title;
 
     /**
@@ -158,6 +178,13 @@ class Property
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="properties")
      */
     private $options;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_time;
+    
+
 
     public function getId(): ?int
     {
@@ -446,6 +473,72 @@ class Property
         if ($this->options->removeElement($option)) {
             $option->removeProperty($this);
         }
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Get mimeTypes="image/jpeg")
+     *
+     * @return  File|null
+     */ 
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set mimeTypes="image/jpeg")
+     *
+     * @param  File|null  $imageFile
+     *
+     * 
+     */ 
+    public function setImageFile(File $imageFile = null): Property
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_time = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedTime(): ?\DateTimeInterface
+    {
+        return $this->updated_time;
+    }
+
+    public function setUpdatedTime(\DateTimeInterface $updated_time): self
+    {
+        $this->updated_time = $updated_time;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of filename
+     *
+     * @return  string|null
+     */ 
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set the value of filename
+     *
+     * @param  string|null  $filename
+     *
+     * @return  self
+     */ 
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
 
         return $this;
     }

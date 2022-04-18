@@ -23,8 +23,7 @@ class AdminController extends AbstractController
     /**
      * @var ManagerRegistry
      */
-
-     private $em;
+private $em;
      
      public function __construct(PropertyRepository $repository, ManagerRegistry $em) {
         $this->em = $em;
