@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Property;
-use App\Entity\PropertySearch;
 use App\Form\ContactType;
+use App\Entity\PropertySearch;
 use App\Form\PropertySearchType;
 use App\Repository\PropertyRepository;
 use App\Notification\ContactNotification;
@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 
 class PropertyController extends AbstractController
 {
@@ -90,7 +91,7 @@ class PropertyController extends AbstractController
      * @param Property $property
      * @return Response
      */
-    public function contact(Request $request, ContactNotification $notification): Response
+    public function contact(Request $request, ContactNotification $notification, Recaptcha3Validator $recaptcha3Validator): Response
     {
         $contact = new Contact();
 
