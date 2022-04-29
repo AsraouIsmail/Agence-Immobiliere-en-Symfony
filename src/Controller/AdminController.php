@@ -39,7 +39,8 @@ private $em;
     {
         $properties = $this->repository->findAll();
 
-        dump($properties);
+        // dump($properties);
+
         return $this->render('admin/index.html.twig', [
             'properties' => $properties,
         ]);
